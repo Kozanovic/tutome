@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TUTOME - Tutoriels HTML & CSS</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    /* ===== Global ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; } /* défilement fluide */
+    body { font-family: Arial, sans-serif; line-height:1.6; background-color:#f9f9f9; color:#333; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Header ===== */
+    header {
+      background-color:#fff;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      padding:1rem 2rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .logo { font-size:1.8rem; font-weight:bold; color:#2fb8ff; }
+    nav ul { display:flex; gap:2rem; list-style:none; }
+    nav ul li a:hover { color:#5f58ff; }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      background: linear-gradient(135deg, #2fb8ff, #5f58ff);
+      color:#fff;
+      text-align:center;
+      padding:4rem 2rem;
+    }
+    .hero h1 { font-size:2.5rem; margin-bottom:1rem; }
+    .hero p { font-size:1.2rem; margin-bottom:2rem; }
+    .hero .cta-button {
+      background-color:#fff;
+      color:#2fb8ff;
+      padding:1rem 2rem;
+      border-radius:50px;
+      font-weight:bold;
+      transition: all 0.3s ease;
+    }
+    .hero .cta-button:hover { background-color:#5f58ff; color:#fff; }
+
+    /* ===== Tutorial Menu (Sommaire) ===== */
+    .tutorial-menu { text-align:center; margin:2rem 0; }
+    .tutorial-menu ul {
+      list-style:none;
+      display:flex;
+      justify-content:center;
+      gap:2rem;
+      flex-wrap:wrap;
+    }
+    .tutorial-menu ul li a {
+      padding:0.5rem 1rem;
+      background-color:#2fb8ff;
+      color:#fff;
+      border-radius:50px;
+      transition: background-color 0.3s ease;
+    }
+    .tutorial-menu ul li a:hover { background-color:#5f58ff; }
+
+    /* ===== Tutorial Sections ===== */
+    section.tutorial {
+      max-width:900px;
+      margin:4rem auto;
+      padding:2rem;
+      background-color:#fff;
+      border-radius:10px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    section.tutorial h2 { color:#2fb8ff; margin-bottom:1rem; }
+    section.tutorial p { margin-bottom:1rem; }
+    .video-container { margin-top:1rem; }
+    .video-container iframe { width:100%; height:400px; border-radius:10px; }
+
+    /* ===== Responsive ===== */
+    @media(max-width:768px){
+      .hero h1 { font-size:2rem; }
+      .hero p { font-size:1rem; }
+      .tutorial-menu ul { flex-direction:column; gap:1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">TUTOME</div>
+    <nav>
+      <ul>
+        <li><a href="./index.html">Accueil</a></li>
+        <li><a href="./html-css.html#html-intro">HTML & CSS</a></li>
+        <li><a href="./office.html">Office</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Tutoriels HTML & CSS</h1>
+    <p>Apprenez à créer des sites web modernes, stylés et responsives</p>
+  </section>
+
+  <!-- Tutorial Menu (Sommaire) -->
+  <nav class="tutorial-menu">
+    <ul>
+      <li><a href="./html-css.html#html-intro">Introduction à HTML</a></li>
+      <li><a href="./html-css.html#css-style">Stylisation avec CSS</a></li>
+      <li><a href="./html-css.html#responsive-design">Responsive Design</a></li>
+    </ul>
+  </nav>
+
+  <!-- Tutorial 1: Introduction à HTML -->
+  <section class="tutorial" id="html-intro">
+    <h2>Introduction à HTML</h2>
+    <p>Découvrez la structure de base d’une page web avec HTML. Apprenez à utiliser les balises essentielles pour créer du contenu structuré.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/SJXuWKMq7Z4?rel=0&modestbranding=1&autoplay=0&controls=1" title="Introduction à HTML" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Tutorial 2: Stylisation avec CSS -->
+  <section class="tutorial" id="css-style">
+    <h2>Stylisation avec CSS</h2>
+    <p>Apprenez à rendre vos pages web attrayantes grâce aux couleurs, polices, marges, et à la mise en page moderne avec CSS.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/SJXuWKMq7Z4?rel=0&modestbranding=1&autoplay=0&controls=1" title="Stylisation avec CSS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Tutorial 3: Responsive Design -->
+  <section class="tutorial" id="responsive-design">
+    <h2>Responsive Design</h2>
+    <p>Apprenez à adapter vos sites web à tous les appareils : PC, tablette et mobile, grâce aux media queries et aux mises en page flexibles.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/SJXuWKMq7Z4?rel=0&modestbranding=1&autoplay=0&controls=1" title="Responsive Design" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+</body>
+</html>

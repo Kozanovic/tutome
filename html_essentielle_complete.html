@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TUTOME — Série HTML Complète</title>
+<style>
+  :root{
+    --header-height:72px;
+    --blue:#007BFF;
+    --blue-dark:#0056b3;
+    --bg:#f1f9ff;
+  }
+
+  /* Reset / Base */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Arial, sans-serif;
+    background:var(--bg);
+    color:#222;
+    scroll-behavior:smooth;
+    overflow-x:hidden;
+  }
+
+  /* Header (top) */
+  header{
+    height:var(--header-height);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    position:sticky;
+    top:0;
+    z-index:120;
+  }
+  .brand{
+    display:flex;align-items:center;gap:12px;
+  }
+  .logo-link{
+    display:flex;align-items:center;gap:10px;
+    text-decoration:none;color:var(--blue);
+  }
+  .logo{
+    font-size:1.4rem;font-weight:700;color:var(--blue);
+  }
+  .site-title{
+    font-size:1rem;color:#333;
+  }
+
+  .header-actions{
+    display:flex;gap:10px;align-items:center;
+  }
+  .show-all-btn{
+    background:var(--blue);
+    color:#fff;
+    padding:8px 12px;
+    border-radius:6px;
+    border:0;
+    cursor:pointer;
+    font-weight:600;
+  }
+  .show-all-btn:hover{background:var(--blue-dark)}
+
+  /* Layout: left nav + main */
+  .container{display:flex;min-height:calc(100vh - var(--header-height));}
+
+  /* Left nav */
+  nav.side{
+    width:260px;
+    background:var(--blue-dark);
+    color:#fff;
+    padding:18px 12px;
+    position:sticky;
+    top:var(--header-height);
+    height:calc(100vh - var(--header-height));
+    overflow:auto;
+    z-index:110;
+  }
+  nav.side h3{color:#fff;margin:6px 12px 12px;font-size:0.95rem}
+  nav.side a{
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    padding:10px 14px;
+    margin:4px 8px;
+    border-radius:6px;
+    font-size:0.95rem;
+  }
+  nav.side a:hover, nav.side a.active{background:rgba(255,255,255,0.08)}
+  nav.side .section-group{margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.03)}
+
+  /* Main content (right) */
+  main{
+    flex:1;
+    padding:28px 36px;
+    min-height:calc(100vh - var(--header-height));
+  }
+  /* Each section styled as separate 'page' */
+  section.page{
+    background:#fff;
+    border-radius:10px;
+    padding:26px;
+    margin-bottom:28px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+    /* make each section fill viewport so it's "visible seul" */
+    min-height:calc(100vh - var(--header-height) - 80px);
+    overflow:auto;
+  }
+  section.page h2{color:var(--blue);margin-bottom:12px}
+  section.page p{margin-bottom:12px;line-height:1.6}
+  section.page pre{
+    background:linear-gradient(#eaf4ff,#e6f0ff);
+    padding:14px;border-left:5px solid var(--blue);
+    overflow-x:auto;border-radius:6px;font-size:0.95rem;
+  }
+
+  /* "Retour en haut" button */
+  #topBtn{
+    display:none;
+    position:fixed;
+    right:26px;
+    bottom:26px;
+    z-index:150;
+    background:var(--blue);
+    color:#fff;
+    border:0;padding:12px 14px;border-radius:8px;cursor:pointer;font-weight:700;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12);
+  }
+  #topBtn:hover{background:var(--blue-dark);}
+
+  /* Responsive: nav becomes top horizontal on small screens */
+  @media(max-width:920px){
+    nav.side{position:relative;width:100%;height:auto;top:0;padding:10px;display:flex;flex-wrap:wrap;gap:6px}
+    nav.side a{flex:1 1 auto;margin:4px;padding:8px;font-size:0.9rem}
+    .container{flex-direction:column}
+    main{padding:18px}
+    section.page{min-height:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header with TUTOME title clickable to index.html -->
+<header>
+  <div class="brand">
+    <a class="logo-link" href="index.html" title="Aller à l'accueil (index.html)">
+      <div class="logo">TUTOME</div>
+      <div class="site-title">Portfolio Éducatif</div>
+    </a>
+  </div>
+
+  <div class="header-actions">
+    <button id="showAllBtn" class="show-all-btn" title="Afficher toutes les sections">Afficher tout</button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- LEFT NAV -->
+  <nav class="side" id="sideNav" aria-label="Navigation des chapitres">
+    <h3>Sommaire — Série HTML (30)</h3>
+
+    <!-- Group 1 (Essentielle 1-10) -->
+    <div class="section-group">
+      <a href="#introduction" data-target="introduction">1. Introduction</a>
+      <a href="#basic" data-target="basic">2. Basic</a>
+      <a href="#elements" data-target="elements">3. Elements</a>
+      <a href="#attributes" data-target="attributes">4. Attributes</a>
+      <a href="#headings" data-target="headings">5. Headings</a>
+      <a href="#paragraphs" data-target="paragraphs">6. Paragraphs</a>
+      <a href="#links" data-target="links">7. Links</a>
+      <a href="#images" data-target="images">8. Images</a>
+      <a href="#lists" data-target="lists">9. Lists</a>
+      <a href="#tables" data-target="tables">10. Tables</a>
+    </div>
+
+    <!-- Group 2 (complément 11-20) -->
+    <div class="section-group">
+      <a href="#forms" data-target="forms">11. Forms</a>
+      <a href="#input" data-target="input">12. Input Types</a>
+      <a href="#buttons" data-target="buttons">13. Buttons</a>
+      <a href="#select" data-target="select">14. Select</a>
+      <a href="#textarea" data-target="textarea">15. Textarea</a>
+      <a href="#multimedia" data-target="multimedia">16. Multimedia</a>
+      <a href="#iframe" data-target="iframe">17. Iframes</a>
+      <a href="#semantic" data-target="semantic">18. Semantic</a>
+      <a href="#meta" data-target="meta">19. Meta Tags</a>
+      <a href="#comments" data-target="comments">20. Comments</a>
+    </div>
+
+    <!-- Group 3 (21-30) -->
+    <div class="section-group">
+      <a href="#entities" data-target="entities">21. Entities</a>
+      <a href="#colors" data-target="colors">22. Colors</a>
+      <a href="#inline" data-target="inline">23. Inline CSS</a>
+      <a href="#internal" data-target="internal">24. Internal CSS</a>
+      <a href="#external" data-target="external">25. External CSS</a>
+      <a href="#classid" data-target="classid">26. Classes & IDs</a>
+      <a href="#divspan" data-target="divspan">27. Div & Span</a>
+      <a href="#layouts" data-target="layouts">28. Layouts</a>
+      <a href="#advtables" data-target="advtables">29. Tables Advanced</a>
+      <a href="#best" data-target="best">30. Best Practices</a>
+    </div>
+  </nav>
+
+  <!-- MAIN: all sections (each is a 'page') -->
+  <main id="mainContent">
+
+    <!-- Section 1 -->
+    <section id="introduction" class="page" data-section="introduction">
+      <h2>1. HTML Introduction</h2>
+      <p>HTML (HyperText Markup Language) est le langage de base pour créer des pages web. Il structure le contenu et permet de l'afficher dans un navigateur.</p>
+      <p>Structure minimale d'une page :</p>
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Ma page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Bonjour&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>Explication : la déclaration <code>&lt;!DOCTYPE html&gt;</code> indique que vous utilisez HTML5.</p>
+    </section>
+
+    <!-- Section 2 -->
+    <section id="basic" class="page" data-section="basic">
+      <h2>2. HTML Basic</h2>
+      <p>Les balises de base :</p>
+      <ul>
+        <li><code>&lt;html&gt;</code> : racine du document</li>
+        <li><code>&lt;head&gt;</code> : méta-infos, titre, fichiers CSS/JS</li>
+        <li><code>&lt;title&gt;</code> : nom de la page dans l'onglet</li>
+        <li><code>&lt;body&gt;</code> : contenu visible</li>
+      </ul>
+      <pre>&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Titre&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;Contenu&lt;/body&gt;
+&lt;/html&gt;</pre>
+      <p>Conseil : sauvegarde toujours en UTF-8 et utilise des balises sémantiques quand possible.</p>
+    </section>
+
+    <!-- Section 3 -->
+    <section id="elements" class="page" data-section="elements">
+      <h2>3. HTML Elements</h2>
+      <p>Un élément HTML se compose d'une balise ouvrante, du contenu, et d'une balise fermante :</p>
+      <pre>&lt;p&gt;Ceci est un paragraphe&lt;/p&gt;
+&lt;a href="https://example.com"&gt;Lien&lt;/a&gt;
+&lt;img src="image.jpg" alt="Description"&gt;</pre>
+      <p>Note : certaines balises sont auto-fermantes (ex : <code>&lt;img&gt;</code>).</p>
+    </section>
+
+    <!-- Section 4 -->
+    <section id="attributes" class="page" data-section="attributes">
+      <h2>4. HTML Attributes</h2>
+      <p>Les attributs fournissent des informations additionnelles aux éléments :</p>
+      <pre>&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Visiter&lt;/a&gt;
+&lt;img src="logo.png" alt="Logo" width="200"&gt;</pre>
+      <p>Bonnes pratiques : toujours fournir un <code>alt</code> pour les images pour l'accessibilité.</p>
+    </section>
+
+    <!-- Section 5 -->
+    <section id="headings" class="page" data-section="headings">
+      <h2>5. HTML Headings</h2>
+      <p>Utilise <code>&lt;h1&gt;</code> à <code>&lt;h6&gt;</code> pour structurer le contenu. Le SEO se base sur cette hiérarchie.</p>
+      <pre>&lt;h1&gt;Titre principal&lt;/h1&gt;
+&lt;h2&gt;Sous-titre&lt;/h2&gt;</pre>
+      <p>Conseil : un seul <code>&lt;h1&gt;</code> par page pour la structure sémantique.</p>
+    </section>
+
+    <!-- Section 6 -->
+    <section id="paragraphs" class="page" data-section="paragraphs">
+      <h2>6. HTML Paragraphs</h2>
+      <p>Les paragraphes sont créés avec <code>&lt;p&gt;</code>. Pour la mise en forme : <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, etc.</p>
+      <pre>&lt;p&gt;Texte normal&lt;/p&gt;
+&lt;strong&gt;Texte en gras&lt;/strong&gt;
+&lt;em&gt;Texte en italique&lt;/em&gt;</pre>
+    </section>
+
+    <!-- Section 7 -->
+    <section id="links" class="page" data-section="links">
+      <h2>7. HTML Links</h2>
+      <p>Liens internes vs externes :</p>
+      <pre>&lt;a href="page.html"&gt;Lien interne&lt;/a&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;Lien externe&lt;/a&gt;</pre>
+      <p>Pour naviguer dans la même page, on utilise des ancres : <code>&lt;a href="#section"&gt;</code>.</p>
+    </section>
+
+    <!-- Section 8 -->
+    <section id="images" class="page" data-section="images">
+      <h2>8. HTML Images</h2>
+      <p>Insérer une image correctement :</p>
+      <pre>&lt;img src="photo.jpg" alt="Description claire" width="400"&gt;</pre>
+      <p>Astuce : optimise la taille pour la performance et fournis des <code>srcset</code> si nécessaire.</p>
+    </section>
+
+    <!-- Section 9 -->
+    <section id="lists" class="page" data-section="lists">
+      <h2>9. HTML Lists</h2>
+      <p>Listes non-ordonnées et ordonnées :</p>
+      <pre>&lt;ul&gt;
+  &lt;li&gt;Point 1&lt;/li&gt;
+  &lt;li&gt;Point 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Premier&lt;/li&gt;
+  &lt;li&gt;Deuxième&lt;/li&gt;
+&lt;/ol&gt;</pre>
+    </section>
+
+    <!-- Section 10 -->
+    <section id="tables" class="page" data-section="tables">
+      <h2>10. HTML Tables</h2>
+      <p>Tables pour afficher des données tabulaires :</p>
+      <pre>&lt;table border="1"&gt;
+  &lt;tr&gt;&lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Âge&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;Alice&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+      <p>Pour le style, préfère CSS plutôt que l'attribut <code>border</code> inline.</p>
+    </section>
+
+    <!-- Section 11 -->
+    <section id="forms" class="page" data-section="forms">
+      <h2>11. HTML Forms</h2>
+      <p>Les formulaires collectent des données utilisateur et les envoient au serveur.</p>
+      <pre>&lt;form action="/submit" method="post"&gt;
+  &lt;label for="nom"&gt;Nom:&lt;/label&gt;
+  &lt;input id="nom" name="nom" type="text" required&gt;
+  &lt;input type="submit" value="Envoyer"&gt;
+&lt;/form&gt;</pre>
+      <p>Pense à la sécurité (validation côté serveur) et à l'accessibilité (labels).</p>
+    </section>
+
+    <!-- Section 12 -->
+    <section id="input" class="page" data-section="input">
+      <h2>12. HTML Input Types</h2>
+      <p>Types d'input courants :</p>
+      <pre>&lt;input type="text"&gt;  &lt;!-- texte --&gt;
+&lt;input type="email"&gt; &lt;!-- email --&gt;
+&lt;input type="number"&gt; &lt;!-- nombre --&gt;
+&lt;input type="date"&gt;   &lt;!-- date --&gt;</pre>
+      <p>Utilise le bon type pour activer les claviers mobiles adaptés et la validation native.</p>
+    </section>
+
+    <!-- Section 13 -->
+    <section id="buttons" class="page" data-section="buttons">
+      <h2>13. HTML Buttons</h2>
+      <p>Boutons :</p>
+      <pre>&lt;button type="button"&gt;Cliquer&lt;/button&gt;
+&lt;button type="submit"&gt;Envoyer&lt;/button&gt;
+&lt;input type="reset" value="Réinitialiser"&gt;</pre>
+    </section>
+
+    <!-- Section 14 -->
+    <section id="select" class="page" data-section="select">
+      <h2>14. HTML Select & Options</h2>
+      <p>Menu déroulant :</p>
+      <pre>&lt;label&gt;Pays:&lt;/label&gt;
+&lt;select name="pays"&gt;
+  &lt;option value="fr"&gt;France&lt;/option&gt;
+  &lt;option value="us"&gt;USA&lt;/option&gt;
+&lt;/select&gt;</pre>
+    </section>
+
+    <!-- Section 15 -->
+    <section id="textarea" class="page" data-section="textarea">
+      <h2>15. HTML Textarea</h2>
+      <p>Zone de texte multi-lignes :</p>
+      <pre>&lt;label for="msg"&gt;Message:&lt;/label&gt;
+&lt;textarea id="msg" rows="6" cols="60"&gt;Votre message...&lt;/textarea&gt;</pre>
+    </section>
+
+    <!-- Section 16 -->
+    <section id="multimedia" class="page" data-section="multimedia">
+      <h2>16. HTML Multimedia</h2>
+      <p>Inclure audio / vidéo :</p>
+      <pre>&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+
+&lt;video controls width="640"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</pre>
+    </section>
+
+    <!-- Section 17 -->
+    <section id="iframe" class="page" data-section="iframe">
+      <h2>17. HTML Iframes</h2>
+      <p>Afficher une page externe :</p>
+      <pre>&lt;iframe src="https://example.com" width="800" height="450" title="Exemple"&gt;&lt;/iframe&gt;</pre>
+      <p>Attention à la sécurité (sandbox) et au responsive.</p>
+    </section>
+
+    <!-- Section 18 -->
+    <section id="semantic" class="page" data-section="semantic">
+      <h2>18. HTML Semantic Elements</h2>
+      <p>Balises sémantiques : <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>.</p>
+      <pre>&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;...&lt;/main&gt;</pre>
+    </section>
+
+    <!-- Section 19 -->
+    <section id="meta" class="page" data-section="meta">
+      <h2>19. HTML Meta Tags</h2>
+      <p>Méta-informations pour le SEO et le comportement :</p>
+      <pre>&lt;meta charset="utf-8"&gt;
+&lt;meta name="description" content="Description de la page"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;</pre>
+    </section>
+
+    <!-- Section 20 -->
+    <section id="comments" class="page" data-section="comments">
+      <h2>20. HTML Comments</h2>
+      <p>Commentaires invisibles dans le rendu :</p>
+      <pre>&lt;!-- Ceci est un commentaire --&gt;</pre>
+    </section>
+
+    <!-- Section 21 -->
+    <section id="entities" class="page" data-section="entities">
+      <h2>21. HTML Entities</h2>
+      <p>Caractères spéciaux et entités :</p>
+      <pre>&amp;lt; &amp;gt; &amp;amp; &amp;copy; &amp;nbsp;</pre>
+    </section>
+
+    <!-- Section 22 -->
+    <section id="colors" class="page" data-section="colors">
+      <h2>22. HTML Colors</h2>
+      <p>Définir les couleurs avec noms, hex ou rgb :</p>
+      <pre>&lt;p style="color:red"&gt;Texte rouge&lt;/p&gt;
+&lt;p style="color:#007BFF"&gt;Texte bleu&lt;/p&gt;</pre>
+    </section>
+
+    <!-- Section 23 -->
+    <section id="inline" class="page" data-section="inline">
+      <h2>23. HTML Inline CSS</h2>
+      <p>Styles en ligne (à limiter) :</p>
+      <pre>&lt;div style="background:#e6f0ff;padding:10px"&gt;Contenu&lt;/div&gt;</pre>
+    </section>
+
+    <!-- Section 24 -->
+    <section id="internal" class="page" data-section="internal">
+      <h2>24. HTML Internal CSS</h2>
+      <p>Styles définis dans <code>&lt;style&gt;</code> dans le head :</p>
+      <pre>&lt;style&gt;
+p{color:green}
+&lt;/style&gt;</pre>
+    </section>
+
+    <!-- Section 25 -->
+    <section id="external" class="page" data-section="external">
+      <h2>25. HTML External CSS</h2>
+      <p>Relier un fichier CSS externe :</p>
+      <pre>&lt;link rel="stylesheet" href="style.css"&gt;</pre>
+      <p>Pratique pour séparer la présentation du contenu.</p>
+    </section>
+
+    <!-- Section 26 -->
+    <section id="classid" class="page" data-section="classid">
+      <h2>26. HTML Classes &amp; IDs</h2>
+      <p>Utilise des classes pour le style et les IDs pour les identifiants uniques :</p>
+      <pre>&lt;div id="hero"&gt;&lt;/div&gt;
+&lt;p class="important"&gt;Texte&lt;/p&gt;</pre>
+    </section>
+
+    <!-- Section 27 -->
+    <section id="divspan" class="page" data-section="divspan">
+      <h2>27. HTML Div &amp; Span</h2>
+      <p><code>&lt;div&gt;</code> pour les blocs, <code>&lt;span&gt;</code> pour le texte en ligne.</p>
+      <pre>&lt;div class="card"&gt;&lt;span&gt;Label&lt;/span&gt;&lt;/div&gt;</pre>
+    </section>
+
+    <!-- Section 28 -->
+    <section id="layouts" class="page" data-section="layouts">
+      <h2>28. HTML Layouts</h2>
+      <p>Organiser la page: header, nav, main, aside, footer. Combine avec CSS Grid / Flexbox pour les layout avancés.</p>
+      <pre>&lt;header&gt;&lt;/header&gt;
+&lt;nav&gt;&lt;/nav&gt;
+&lt;main&gt;&lt;section&gt;&lt;/section&gt;&lt;/main&gt;
+&lt;aside&gt;&lt;/aside&gt;
+&lt;footer&gt;&lt;/footer&gt;</pre>
+    </section>
+
+    <!-- Section 29 -->
+    <section id="advtables" class="page" data-section="advtables">
+      <h2>29. HTML Tables Advanced</h2>
+      <p>Fusion de cellules et en-têtes :</p>
+      <pre>&lt;table&gt;
+  &lt;tr&gt;&lt;th&gt;Nom&lt;/th&gt;&lt;th&gt;Détails&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td colspan="2"&gt;Titre fusionné&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</pre>
+    </section>
+
+    <!-- Section 30 -->
+    <section id="best" class="page" data-section="best">
+      <h2>30. HTML Best Practices</h2>
+      <p>Règles recommandées :</p>
+      <ul>
+        <li>Code sémantique et accessible</li>
+        <li>Utilise des balises ARIA si nécessaire</li>
+        <li>Valide ton HTML et CSS</li>
+        <li>Optimise les images et les ressources</li>
+        <li>Commentaires et structure claire</li>
+      </ul>
+      <pre>&lt;!-- Ex : header sémantique et nav clair --&gt;
+&lt;header&gt;&lt;nav&gt;...&lt;/nav&gt;&lt;/header&gt;</pre>
+    </section>
+
+  </main>
+</div>
+
+<!-- Bouton Retour en haut -->
+<button id="topBtn" title="Retour en haut">↑ Top</button>
+
+<script>
+  // ----------
+  // Behaviour:
+  // - Clicking a left nav link shows that section alone (hides others)
+  // - "Afficher tout" shows all sections again
+  // - TUTOME link in header goes to index.html (as requested)
+  // - top button appears on scroll
+  // - highlight active nav link
+  // ----------
+
+  (function(){
+    const nav = document.getElementById('sideNav');
+    const navLinks = Array.from(nav.querySelectorAll('a[data-target]'));
+    const sections = Array.from(document.querySelectorAll('section.page'));
+    const showAllBtn = document.getElementById('showAllBtn');
+    const topBtn = document.getElementById('topBtn');
+
+    // Helper: hide all sections
+    function hideAllSections(){
+      sections.forEach(s => s.style.display = 'none');
+    }
+    // Helper: show all sections
+    function showAllSections(){
+      sections.forEach(s => s.style.display = '');
+      // remove active class
+      navLinks.forEach(a => a.classList.remove('active'));
+      // remove hash from url
+      history.replaceState(null, '', ' ');
+      // scroll to top of page
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // Show a single section by id
+    function showSection(id){
+      const sec = document.getElementById(id);
+      if(!sec) return;
+      hideAllSections();
+      sec.style.display = '';
+      // scroll the main content area to top of that section
+      sec.scrollIntoView({behavior:'smooth'});
+      // update active class
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      // update URL hash (so user can copy link)
+      history.replaceState(null, '', '#'+id);
+    }
+
+    // Attach click handlers on nav links
+    navLinks.forEach(a => {
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        const target = this.dataset.target;
+        // On small screens: ensure content is visible (we still hide others)
+        showSection(target);
+      });
+    });
+
+    // Show all on button click
+    showAllBtn.addEventListener('click', function(){
+      showAllSections();
+    });
+
+    // On load: if URL has hash, show that section alone
+    window.addEventListener('load', function(){
+      const hash = location.hash.replace('#','');
+      if(hash){
+        // show only that section
+        showSection(hash);
+      } else {
+        // default: show all
+        showAllSections();
+      }
+    });
+
+    // Top button visibility
+    window.addEventListener('scroll', function(){
+      const y = window.scrollY || document.documentElement.scrollTop;
+      if(y > 200) topBtn.style.display = 'block';
+      else topBtn.style.display = 'none';
+    });
+    topBtn.addEventListener('click', function(){ document.getElementById('introduction').scrollIntoView({behavior:'smooth'}); });
+
+    // Optional: keyboard navigation (left/right) to go previous/next when single section shown
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+        // check if only one section is visible
+        const visible = sections.filter(s => s.style.display !== 'none');
+        if(visible.length === 1){
+          const currentId = visible[0].id;
+          const idx = sections.findIndex(s => s.id === currentId);
+          let nextIdx = idx;
+          if(e.key === 'ArrowLeft') nextIdx = Math.max(0, idx-1);
+          if(e.key === 'ArrowRight') nextIdx = Math.min(sections.length-1, idx+1);
+          if(nextIdx !== idx){
+            showSection(sections[nextIdx].id);
+          }
+        }
+      }
+    });
+
+  })();
+</script>
+
+</body>
+</html>
