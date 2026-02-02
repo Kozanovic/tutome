@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TUTOME - Portfolio Éducatif</title>
+    <style>
+      /* General Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f9f9f9;
+        overflow-x: hidden;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #5f58ff;
+      }
+
+      /* Header Styles */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #2fb8ff;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links li a {
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links li a:hover {
+        color: #5f58ff;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: #333;
+        margin: 3px 0;
+        transition: 0.3s;
+      }
+
+      /* Mobile Navigation */
+      @media (max-width: 768px) {
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: #fff;
+          flex-direction: column;
+          padding: 1rem 0;
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .hamburger.active span:nth-child(1) {
+          transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+          transform: rotate(45deg) translate(-5px, -6px);
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        background: linear-gradient(135deg, #2fb8ff, #5f58ff);
+        color: #fff;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-content {
+        z-index: 2;
+        max-width: 600px;
+        padding: 2rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        animation: fadeInUp 1s ease;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1.2s ease;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background-color: #fff;
+        color: #2fb8ff;
+        border-radius: 50px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        animation: fadeInUp 1.4s ease;
+      }
+
+      .cta-button:hover {
+        background-color: #5f58ff;
+        color: #fff;
+        transform: translateY(-5px);
+      }
+
+      .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("https://via.placeholder.com/1920x1080?text=Hero+Background")
+          no-repeat center center/cover;
+        opacity: 0.1;
+        z-index: 1;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Sections */
+      section {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      /* Tutorials Grid */
+      .tutorials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .tutorial-card {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+      }
+
+      .tutorial-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .tutorial-card i {
+        font-size: 3rem;
+        color: #2fb8ff;
+        margin-bottom: 1rem;
+      }
+
+      .tutorial-card h3 {
+        margin-bottom: 1rem;
+        color: #5f58ff;
+      }
+
+      .card-link {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: #2fb8ff;
+        color: #fff;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .card-link:hover {
+        background-color: #5f58ff;
+      }
+
+      /* Objectives Section */
+      .objectives {
+        background-color: #fff;
+      }
+
+      .objectives-list {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .objective-item {
+        max-width: 300px;
+        text-align: center;
+      }
+
+      .objective-item i {
+        font-size: 2rem;
+        color: #2fb8ff;
+        margin-bottom: 1rem;
+      }
+
+      /* About Section */
+      .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .about-image {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+      }
+
+      /* Videos Section */
+      .video-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .video-container iframe {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+      }
+
+      /* Contact Section */
+      .contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .contact-form button {
+        padding: 1rem;
+        background-color: #2fb8ff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .contact-form button:hover {
+        background-color: #5f58ff;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .social-icons {
+        margin-top: 1rem;
+      }
+
+      .social-icons a {
+        margin: 0 1rem;
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        color: #2fb8ff;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .tutorials-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .objectives-list {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">TUTOME</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#tutorials">Tutoriels</a></li>
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Home Section (Hero) -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Apprenez simplement. Progressez rapidement.</h1>
+        <p>
+          Des tutoriels clairs en HTML, CSS, Word, Excel et PowerPoint pour
+          maîtriser les outils numériques.
+        </p>
+        <a href="#tutorials" class="cta-button">Commencer maintenant</a>
+      </div>
+      <div class="hero-bg"></div>
+    </section>
+
+    <!-- Tutorials Section -->
+    <section id="tutorials">
+      <h2>Nos Tutoriels</h2>
+      <div class="tutorials-grid">
+        <div class="tutorial-card">
+          <i class="fas fa-code"></i>
+          <h3>HTML & CSS</h3>
+          <p>Apprenez à créer des sites web modernes et responsives.</p>
+          <a href="#html-css" class="card-link">Voir les tutoriels</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-file-word"></i>
+          <h3>Word, Excel & PowerPoint</h3>
+          <p>Maîtrisez les outils bureautiques pour la productivité.</p>
+          <a href="#office" class="card-link">Voir les tutoriels</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-project-diagram"></i>
+          <h3>Projets pratiques</h3>
+          <p>Développez des compétences numériques avec des exercices.</p>
+          <a href="#videos" class="card-link">Voir les vidéos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objectives Section -->
+    <section class="objectives">
+      <h2>Les objectifs de TUTOME</h2>
+      <div class="objectives-list">
+        <div class="objective-item">
+          <i class="fas fa-book-open"></i>
+          <p>
+            Fournir des tutoriels simples et détaillés pour tous les niveaux.
+          </p>
+        </div>
+        <div class="objective-item">
+          <i class="fas fa-tools"></i>
+          <p>
+            Aider les étudiants à maîtriser les outils numériques essentiels.
+          </p>
+        </div>
+        <div class="objective-item">
+          <i class="fas fa-graduation-cap"></i>
+          <p>Préparer à l’autonomie dans les projets et exercices pratiques.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HTML & CSS Tutorials Sub-Section -->
+    <section id="html-css">
+      <h2>Tutoriels HTML & CSS</h2>
+      <div class="tutorials-grid">
+        <div class="tutorial-card">
+          <i class="fas fa-code"></i>
+          <h3>Introduction à HTML</h3>
+          <p>
+            Apprenez les bases du balisage HTML pour structurer vos pages web.
+          </p>
+          <a href="./html_essentielle_complete.html" class="card-link">Commencer</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-palette"></i>
+          <h3>Stylisation avec CSS</h3>
+          <p>Découvrez comment rendre vos sites attrayants avec CSS.</p>
+          <a href="./css.html" class="card-link">Commencer</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>Responsive Design</h3>
+          <p>Créez des sites adaptés à tous les appareils.</p>
+          <a href="#" class="card-link">Commencer</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Office Tutorials Sub-Section -->
+    <section id="office">
+      <h2>Tutoriels Word, Excel & PowerPoint</h2>
+      <div class="tutorials-grid">
+        <div class="tutorial-card">
+          <i class="fas fa-file-word"></i>
+          <h3>Maîtriser Word</h3>
+          <p>Créez des documents professionnels avec Word.</p>
+          <a href="./html-css.html" class="card-link">Commencer</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-table"></i>
+          <h3>Excel pour les données</h3>
+          <p>Analysez et visualisez des données avec Excel.</p>
+          <a href="./z" class="card-link">Commencer</a>
+        </div>
+        <div class="tutorial-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Présentations PowerPoint</h3>
+          <p>Créez des présentations impactantes.</p>
+          <a href="#" class="card-link">Commencer</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos">
+      <h2>Nos Vidéos YouTube</h2>
+      <div class="video-container">
+       <iframe 
+  width="100%" 
+  height="400" 
+  src="https://www.youtube.com/embed/F-lFXUqaBF0" 
+  title="TUTOME - Tutoriels YouTube" 
+  frameborder="0" 
+  allowfullscreen>
+</iframe>
+
+        <p>Découvrez notre playlist complète de tutoriels pratiques.</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <h2>À propos de TUTOME</h2>
+      <div class="about-content">
+        <img
+          src="https://via.placeholder.com/300x200?text=TUTOME+Logo"
+          alt="TUTOME Logo"
+          class="about-image"
+        />
+        <p>
+          TUTOME est une plateforme éducative dédiée à l'apprentissage des
+          outils numériques essentiels. Nous proposons des tutoriels clairs et
+          structurés en HTML, CSS, Word, Excel et PowerPoint, ainsi que des
+          compétences pratiques pour vous aider à progresser rapidement et à
+          devenir autonome dans vos projets.
+        </p>
+        <p>
+          Notre mission est de rendre l'éducation accessible et engageante pour
+          tous.
+        </p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contactez-nous</h2>
+      <form class="contact-form">
+        <input type="text" placeholder="Votre nom" required />
+        <input type="email" placeholder="Votre email" required />
+        <textarea placeholder="Votre message" rows="5" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 TUTOME. Tous droits réservés.</p>
+      <div class="social-icons">
+        <a href="https://youtube.com/@tutome-l6u?si=zQ3AEcw6DN_V2KE3"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/tutome_k7?igsh=MXFpdjl5ejk2cnptbA=="><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/1Cuz1TtR9y/"><i class="fab fa-facebook"></i></a>
+      </div>
+    </footer>
+
+    <script>
+      // Hamburger Menu Toggle
+      document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+          hamburger.classList.toggle("active");
+        });
+
+        // Close menu when a link is clicked (mobile)
+        navLinks.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") {
+            navLinks.classList.remove("active");
+            hamburger.classList.remove("active");
+          }
+        });
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
